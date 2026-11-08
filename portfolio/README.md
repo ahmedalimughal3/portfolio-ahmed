@@ -53,7 +53,8 @@ For the production site, set the Supabase project URL as the Supabase Auth
 Site URL and allow `https://ahmedali-five.vercel.app/**` under Auth URL
 Configuration. In Vercel, set `NEXT_PUBLIC_SUPABASE_URL` and
 `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` for Production, Preview, and Development,
-then redeploy. The dashboard shares the portfolio deployment at
+then redeploy the latest deployment so the new environment settings are loaded.
+The dashboard shares the portfolio deployment at
 `https://ahmedali-five.vercel.app/admin`; no separate Vercel project is needed.
 
 The app uses Supabase Auth sessions and checks the `admin_users` allowlist on
