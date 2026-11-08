@@ -125,7 +125,11 @@ export async function getPortfolioContent(): Promise<PortfolioContent> {
     .order("sort_order", { ascending: true });
 
   if (error) {
-    throw new Error(`Could not load published portfolio content: ${error.message}`);
+    console.error(
+      "Could not load published portfolio content; using local defaults:",
+      error.message,
+    );
+    return defaults;
   }
 
   const records = (data ?? []) as ContentRecord[];
