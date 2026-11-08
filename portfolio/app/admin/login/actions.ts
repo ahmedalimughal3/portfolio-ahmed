@@ -31,6 +31,14 @@ export async function signIn(
   });
 
   if (signInError) {
+    if (signInError.code === "email_not_confirmed") {
+      return {
+        error: "Confirm this account's email in Supabase Authentication before signing in.",
+      };
+    }
+    if (signInError.code !== "invalid_credentials") {
+      return { error: `Supabase sign-in failed: ${signInError.message}` };
+    }
     return { error: "Sign-in failed. Check your email and password." };
   }
 
