@@ -30,3 +30,36 @@ Contact details and service descriptions are also configured in
 `lib/portfolio.ts`. Visitors can email or call directly from the contact section.
 The Blog navigation opens an animated coming-soon dialog until a blog page is
 ready.
+
+## Admin dashboard and Supabase
+
+The private content dashboard is available at `/admin`; sign in at
+`/admin/login`. It manages homepage/about copy, projects, experience, skills,
+services, and contact details. Only published records appear on the public portfolio. Until Supabase
+is configured, the public site continues to use its existing local content.
+
+1. Create a Supabase project and copy its Project URL and publishable key.
+2. Copy `.env.example` to `.env.local` and fill in those two values.
+3. Run the latest `supabase/schema.sql`, then `supabase/seed.sql` in the
+   Supabase SQL Editor. The schema can be re-run if its initial version was
+   already applied; the seed fills the dashboard with the current content.
+4. In Supabase Authentication > Users, create your own user and set a strong
+   password. Do not enable public sign-ups.
+5. In the SQL Editor, run the final `admin_users` insert in `schema.sql` after
+   replacing `you@example.com` with your user's email.
+6. Restart the local dev server, then sign in at `http://localhost:3000/admin/login`.
+
+For the production site, set the Supabase project URL as the Supabase Auth
+Site URL and allow `https://ahmedali-five.vercel.app/**` under Auth URL
+Configuration. In Vercel, set `NEXT_PUBLIC_SUPABASE_URL` and
+`NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` for Production, Preview, and Development,
+then redeploy. The dashboard shares the portfolio deployment at
+`https://ahmedali-five.vercel.app/admin`; no separate Vercel project is needed.
+
+The app uses Supabase Auth sessions and checks the `admin_users` allowlist on
+protected pages and every write action. Row Level Security limits public reads
+to published records and admin writes to allowlisted users. Experience logos
+can be uploaded to a public Supabase Storage bucket; only admins can upload or
+remove files, and uploads are limited to verified image formats up to 5 MB.
+No service-role key is needed by the app. For deployment, add the same two
+environment variables to the hosting provider's protected environment settings.

@@ -3,25 +3,28 @@
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import Image from "next/image";
-import { experience } from "@/lib/portfolio";
+import type { ExperienceItem } from "@/lib/portfolio";
 import { Icon } from "@/components/icon";
 import { SectionReveal } from "@/components/section-reveal";
 
-export function ExperienceSection() {
+export function ExperienceSection({ experience }: { experience: ExperienceItem[] }) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const shouldReduceMotion = useReducedMotion();
-  const activeExperience = experience[activeIndex];
+  const safeActiveIndex = experience.length ? activeIndex % experience.length : 0;
+  const activeExperience = experience[safeActiveIndex];
 
   useEffect(() => {
-    if (isPaused || shouldReduceMotion) return;
+    if (!experience.length || isPaused || shouldReduceMotion) return;
 
     const intervalId = window.setInterval(() => {
       setActiveIndex((index) => (index + 1) % experience.length);
     }, 5500);
 
     return () => window.clearInterval(intervalId);
-  }, [isPaused, shouldReduceMotion]);
+  }, [experience.length, isPaused, shouldReduceMotion]);
+
+  if (!activeExperience) return null;
 
   return (
     <section
@@ -34,7 +37,7 @@ export function ExperienceSection() {
           <span className="section-kicker">02 / WHERE I&apos;VE WORKED</span>
           <h2 id="experience-title">Experience<span>.</span></h2>
         </div>
-        <p>Three chapters, one growing story. The details are yours to make personal.</p>
+        <p>{experience.length} chapters, one growing story. The details are yours to make personal.</p>
       </SectionReveal>
 
       <div
@@ -77,14 +80,14 @@ export function ExperienceSection() {
             {experience.map((item, index) => (
               <button
                 aria-label={`Show ${item.company}`}
-                aria-pressed={index === activeIndex}
-                className={`experience-dot${index === activeIndex ? " is-active" : ""}`}
+                aria-pressed={index === safeActiveIndex}
+                className={`experience-dot${index === safeActiveIndex ? " is-active" : ""}`}
                 key={item.company}
                 onClick={() => setActiveIndex(index)}
                 type="button"
               />
             ))}
-            <span>{String(activeIndex + 1).padStart(2, "0")} <i>/</i> {String(experience.length).padStart(2, "0")}</span>
+            <span>{String(safeActiveIndex + 1).padStart(2, "0")} <i>/</i> {String(experience.length).padStart(2, "0")}</span>
           </div>
         </div>
 
@@ -103,6 +106,7 @@ export function ExperienceSection() {
                 alt={activeExperience.logoAlt}
                 className="experience-logo-image"
                 height={190}
+                unoptimized
                 src={activeExperience.logo}
                 width={190}
               />

@@ -8,6 +8,32 @@ export type Project = {
   visual: "orbit" | "flow" | "pulse";
 };
 
+export type ExperienceItem = {
+  company: string;
+  logo: string;
+  logoAlt: string;
+  role: string;
+  period: string;
+  location: string;
+  summary: string;
+  highlights: string[];
+  color: "blue" | "lime" | "peach";
+};
+
+export type Skill = {
+  title: string;
+  description: string;
+  color: "blue" | "lime" | "peach" | "dark";
+};
+
+export type Service = {
+  number: string;
+  title: string;
+  description: string;
+  tools: string[];
+  color: "blue" | "lime" | "peach";
+};
+
 export const navigation = [
   { label: "Home", href: "#home", icon: "home" },
   { label: "Work", href: "#work", icon: "work" },
@@ -24,7 +50,7 @@ export const contactDetails = {
   github: "https://github.com/ahmedalimughal3",
 };
 
-export const services = [
+export const services: Service[] = [
   {
     number: "01",
     title: "Full Stack Development",
@@ -49,9 +75,9 @@ export const services = [
     tools: ["TypeScript", "React", "CSS"],
     color: "peach",
   },
-] as const;
+];
 
-export const experience = [
+export const experience: ExperienceItem[] = [
   {
     company: "BawdicSoft",
     logo: "/experience/bawdicsoft.png",
@@ -97,7 +123,7 @@ export const experience = [
     ],
     color: "peach",
   },
-] as const;
+];
 
 export const projects: Project[] = [
   {
@@ -132,7 +158,7 @@ export const projects: Project[] = [
   },
 ];
 
-export const skills = [
+export const skills: Skill[] = [
   {
     title: "Frontend",
     description: "Accessible interfaces, thoughtful details, and fast experiences.",
@@ -153,4 +179,4 @@ export const skills = [
     description: "Good questions, clear communication, and steady progress.",
     color: "dark",
   },
-] as const;
+];

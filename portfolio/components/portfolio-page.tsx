@@ -6,23 +6,21 @@ import { ProjectCard } from "@/components/project-card";
 import { SectionReveal } from "@/components/section-reveal";
 import { ExperienceSection } from "@/components/experience-section";
 import { SiteSidebar } from "@/components/site-sidebar";
-import { contactDetails, projects, services, skills } from "@/lib/portfolio";
+import type { PortfolioContent } from "@/lib/portfolio-content";
 
-export function PortfolioPage() {
+export function PortfolioPage({ content }: { content: PortfolioContent }) {
   const shouldReduceMotion = useReducedMotion();
+  const { contactDetails, projects, services, skills } = content;
 
   return (
     <>
-      <SiteSidebar />
+      <SiteSidebar availability={content.site.availability} />
       <main className="page-shell">
         <section className="hero-section page-section" id="home">
           <div className="hero-copy">
-            <div className="eyebrow"><span className="eyebrow-dot" /> DESIGN ENGINEER <span className="eyebrow-divider">/</span> DIGITAL CRAFT</div>
-            <h1>Small stack.<br /><span>Big ideas.</span></h1>
-            <p className="hero-description">
-              I bring thoughtful ideas to life with design, code, and a little
-              curiosity. Building digital things that feel as good as they work.
-            </p>
+            <div className="eyebrow"><span className="eyebrow-dot" /> {content.site.heroKicker}</div>
+            <h1>{content.site.heroTitle}<br /><span>{content.site.heroAccent}</span></h1>
+            <p className="hero-description">{content.site.heroDescription}</p>
             <div className="hero-actions">
               <a className="button button-dark" href="#work">
                 Explore my work <Icon name="arrow" />
@@ -47,7 +45,7 @@ export function PortfolioPage() {
                   y: { duration: 4 + index * 0.45, repeat: Infinity, ease: "easeInOut", delay: index * 0.25 },
                 }}
               >
-                <span className="skill-card-icon">{["⌘", "↗", "✳", "◎"][index]}</span>
+                <span className="skill-card-icon">{["⌘", "↗", "✳", "◎"][index % 4]}</span>
                 <strong>{skill.title}</strong>
                 <p>{skill.description}</p>
                 <span className="skill-card-index">0{index + 1}</span>
@@ -62,8 +60,8 @@ export function PortfolioPage() {
         </section>
 
         <section className="stats-strip" aria-label="Portfolio overview">
-          <div><strong>03<span>+</span></strong><span>Selected projects</span></div>
-          <div><strong>04</strong><span>Ways of working</span></div>
+          <div><strong>{String(projects.length).padStart(2, "0")}<span>+</span></strong><span>Selected projects</span></div>
+          <div><strong>{String(skills.length).padStart(2, "0")}</strong><span>Ways of working</span></div>
           <div><strong>∞</strong><span>Curiosity for what’s next</span></div>
           <span className="stats-note">DESIGN <b>×</b> DEVELOPMENT <b>×</b> DETAIL</span>
         </section>
@@ -86,7 +84,7 @@ export function PortfolioPage() {
           <div className="work-footnote"><span>MORE IN THE WORKS</span><span>ALWAYS BUILDING SOMETHING NEW ↗</span></div>
         </section>
 
-        <ExperienceSection />
+        <ExperienceSection experience={content.experience} />
 
         <section className="skills-section page-section" id="skills">
           <SectionReveal className="skills-section-copy">
@@ -105,7 +103,7 @@ export function PortfolioPage() {
                   <span className="toolkit-number">0{index + 1} / 04</span>
                   <h3>{skill.title}</h3>
                   <p>{skill.description}</p>
-                  <span className="toolkit-spark" aria-hidden="true">{["✳", "↗", "◒", "✦"][index]}</span>
+                  <span className="toolkit-spark" aria-hidden="true">{["✳", "↗", "◒", "✦"][index % 4]}</span>
                 </article>
               </SectionReveal>
             ))}
@@ -125,7 +123,7 @@ export function PortfolioPage() {
               <SectionReveal key={service.title} delay={index * 0.08}>
                 <article className={`service-card service-card--${service.color}`}>
                   <div className="service-card-top">
-                    <span>{service.number} / 03</span>
+                    <span>{service.number} / {String(services.length).padStart(2, "0")}</span>
                     <Icon name="spark" />
                   </div>
                   <h3>{service.title}</h3>
@@ -133,10 +131,12 @@ export function PortfolioPage() {
                   <ul aria-label={`${service.title} technologies`}>
                     {service.tools.map((tool) => <li key={tool}>{tool}</li>)}
                   </ul>
-                  <div className="service-actions">
-                    <a href={`tel:${contactDetails.phone}`}><Icon name="phone" /> Call</a>
-                    <a href={`mailto:${contactDetails.email}?subject=${encodeURIComponent(`Inquiry: ${service.title}`)}`}><Icon name="mail" /> Email</a>
-                  </div>
+                  {(contactDetails.phone || contactDetails.email) && (
+                    <div className="service-actions">
+                      {contactDetails.phone && <a href={`tel:${contactDetails.phone}`}><Icon name="phone" /> Call</a>}
+                      {contactDetails.email && <a href={`mailto:${contactDetails.email}?subject=${encodeURIComponent(`Inquiry: ${service.title}`)}`}><Icon name="mail" /> Email</a>}
+                    </div>
+                  )}
                 </article>
               </SectionReveal>
             ))}
@@ -147,18 +147,11 @@ export function PortfolioPage() {
           <SectionReveal className="about-content">
             <div>
               <span className="section-kicker">05 / A LITTLE ABOUT ME</span>
-              <h2>Curious by nature.<br /><span>Intentional by design.</span></h2>
+              <h2>{content.site.aboutTitle}<br /><span>{content.site.aboutAccent}</span></h2>
             </div>
             <div className="about-copy">
-              <p>
-                I&apos;m Ahmed — a designer-minded developer who enjoys turning
-                complex ideas into simple, useful experiences. I care about how
-                things work, how they feel, and all the small details in between.
-              </p>
-              <p>
-                My process is collaborative and hands-on: ask good questions,
-                make a thoughtful first version, then keep refining until it clicks.
-              </p>
+              <p>{content.site.aboutParagraph}</p>
+              <p>{content.site.aboutSecondParagraph}</p>
               <a className="text-link" href="#contact">Have a project in mind? <span>↘</span></a>
             </div>
           </SectionReveal>
@@ -171,15 +164,19 @@ export function PortfolioPage() {
               <span className="section-kicker">06 / YOUR TURN</span>
               <h2>Got a good idea?<br /><span>Let&apos;s make it real.</span></h2>
               <p>Have a project or a question? Pick the easiest way to reach me.</p>
-              <a className="contact-detail" href={`mailto:${contactDetails.email}`}>
-                <Icon name="mail" /><span>{contactDetails.email}</span>
-              </a>
-              <a className="contact-detail" href={`tel:${contactDetails.phone}`}>
-                <Icon name="phone" /><span>{contactDetails.phone}</span>
-              </a>
+              {contactDetails.email && (
+                <a className="contact-detail" href={`mailto:${contactDetails.email}`}>
+                  <Icon name="mail" /><span>{contactDetails.email}</span>
+                </a>
+              )}
+              {contactDetails.phone && (
+                <a className="contact-detail" href={`tel:${contactDetails.phone}`}>
+                  <Icon name="phone" /><span>{contactDetails.phone}</span>
+                </a>
+              )}
               <div className="contact-socials">
-                <a href={contactDetails.linkedin} target="_blank" rel="noreferrer">LinkedIn <span>↗</span></a>
-                <a href={contactDetails.github} target="_blank" rel="noreferrer">GitHub <span>↗</span></a>
+                {contactDetails.linkedin && <a href={contactDetails.linkedin} target="_blank" rel="noreferrer">LinkedIn <span>↗</span></a>}
+                {contactDetails.github && <a href={contactDetails.github} target="_blank" rel="noreferrer">GitHub <span>↗</span></a>}
               </div>
             </div>
           </SectionReveal>

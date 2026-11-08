@@ -6,7 +6,7 @@ import { navigation } from "@/lib/portfolio";
 import { useScrollDirection } from "@/hooks/use-scroll-direction";
 import { Icon } from "@/components/icon";
 
-export function SiteSidebar() {
+export function SiteSidebar({ availability }: { availability: string }) {
   const isVisible = useScrollDirection();
   const [activeSection, setActiveSection] = useState("#home");
   const [isBlogOpen, setIsBlogOpen] = useState(false);
@@ -110,7 +110,7 @@ export function SiteSidebar() {
 
         <div className="sidebar-bottom">
           <span className="sidebar-caption">CURRENTLY</span>
-          <span className="availability"><i /> Open to opportunities</span>
+          <span className="availability"><i /> {availability}</span>
           <div className="sidebar-shortcuts">
             <a href="#contact" aria-label="Contact Ahmed">✉</a>
             <a href="#work" aria-label="View selected work">↗</a>
