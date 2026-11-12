@@ -44,6 +44,8 @@ is configured, the public site continues to use its existing local content.
 3. Run the latest `supabase/schema.sql`, then `supabase/seed.sql` in the
    Supabase SQL Editor. The schema can be re-run if its initial version was
    already applied; the seed fills the dashboard with the current content.
+   If the existing database still rejects the `blogs` section, run
+   `supabase/blog-migration.sql` in the SQL Editor.
 4. In Supabase Authentication > Users, create your own user and set a strong
    password. Do not enable public sign-ups.
 5. In the SQL Editor, run the final `admin_users` insert in `schema.sql` after
