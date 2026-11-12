@@ -48,7 +48,7 @@ function makeSlug(value: string) {
     .normalize("NFKD")
     .replace(/[\u0300-\u036f]/g, "")
     .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/[^\p{L}\p{N}]+/gu, "-")
     .replace(/^-|-$/g, "")
     .slice(0, 80);
 
@@ -78,8 +78,9 @@ function getPayload(
     ) {
       throw new Error(`${field.label} is required.`);
     }
-    if (typeof value === "string" && value.length > 3000) {
-      throw new Error(`${field.label} must be 3,000 characters or fewer.`);
+    const maxLength = field.maxLength ?? 3000;
+    if (typeof value === "string" && value.length > maxLength) {
+      throw new Error(`${field.label} must be ${maxLength.toLocaleString()} characters or fewer.`);
     }
     if (Array.isArray(value) && (value.length > 30 || value.some((item) => item.length > 180))) {
       throw new Error(`${field.label} must contain at most 30 items, each under 180 characters.`);

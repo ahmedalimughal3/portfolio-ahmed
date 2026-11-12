@@ -4,7 +4,8 @@ export type ContentSection =
   | "skills"
   | "services"
   | "contact"
-  | "site";
+  | "site"
+  | "blogs";
 
 export type ContentField = {
   key: string;
@@ -12,6 +13,7 @@ export type ContentField = {
   kind?: "text" | "textarea" | "list" | "select" | "email" | "url" | "tel";
   options?: string[];
   required?: boolean;
+  maxLength?: number;
 };
 
 export const contentSections: {
@@ -97,6 +99,16 @@ export const contentSections: {
       { key: "aboutParagraph", label: "About paragraph", kind: "textarea", required: true },
       { key: "aboutSecondParagraph", label: "About paragraph (continued)", kind: "textarea", required: true },
       { key: "availability", label: "Availability message", required: true },
+    ],
+  },
+  {
+    id: "blogs",
+    label: "Blogs",
+    description: "Write and publish text-only articles with SEO metadata and tags.",
+    fields: [
+      { key: "title", label: "Post title", required: true, maxLength: 180 },
+      { key: "description", label: "Post description", kind: "textarea", required: true, maxLength: 20000 },
+      { key: "tags", label: "SEO tags", kind: "list", required: true },
     ],
   },
 ];

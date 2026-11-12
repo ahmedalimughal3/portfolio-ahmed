@@ -75,6 +75,7 @@ function ContentForm({
                 defaultValue={fieldValue(record?.payload, field)}
                 name={field.key}
                 placeholder={field.kind === "list" ? "One item per line" : ""}
+                maxLength={field.maxLength}
                 required={field.required}
                 rows={field.kind === "list" ? 4 : 3}
               />
@@ -83,6 +84,7 @@ function ContentForm({
                 autoComplete="off"
                 defaultValue={fieldValue(record?.payload, field)}
                 name={field.key}
+                maxLength={field.maxLength}
                 required={field.required}
                 type={field.kind ?? "text"}
               />

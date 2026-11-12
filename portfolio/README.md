@@ -28,14 +28,15 @@ Update the sample projects, skills, and experience entries in `lib/portfolio.ts`
 with your own content. Company logos are stored in `public/experience/`.
 Contact details and service descriptions are also configured in
 `lib/portfolio.ts`. Visitors can email or call directly from the contact section.
-The Blog navigation opens an animated coming-soon dialog until a blog page is
-ready.
+The Blog navigation opens the public text-only blog at `/blog`. Publish articles
+from the Blogs section in the admin dashboard; each post has a title,
+description, SEO tags, a dedicated page, and generated structured metadata.
 
 ## Admin dashboard and Supabase
 
 The private content dashboard is available at `/admin`; sign in at
 `/admin/login`. It manages homepage/about copy, projects, experience, skills,
-services, and contact details. Only published records appear on the public portfolio. Until Supabase
+services, contact details, and blog posts. Only published records appear on the public site. Until Supabase
 is configured, the public site continues to use its existing local content.
 
 1. Create a Supabase project and copy its Project URL and publishable key.

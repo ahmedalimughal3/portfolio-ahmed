@@ -9,7 +9,7 @@ create table if not exists public.admin_users (
 
 create table if not exists public.portfolio_content (
   id uuid primary key default gen_random_uuid(),
-  section text not null check (section in ('projects', 'experience', 'skills', 'services', 'contact', 'site')),
+  section text not null check (section in ('projects', 'experience', 'skills', 'services', 'contact', 'site', 'blogs')),
   slug text not null,
   title text not null,
   payload jsonb not null check (jsonb_typeof(payload) = 'object'),
@@ -25,7 +25,7 @@ alter table public.portfolio_content
 
 alter table public.portfolio_content
   add constraint portfolio_content_section_check
-  check (section in ('projects', 'experience', 'skills', 'services', 'contact', 'site'));
+  check (section in ('projects', 'experience', 'skills', 'services', 'contact', 'site', 'blogs'));
 
 create index if not exists portfolio_content_published_order_idx
   on public.portfolio_content (section, published, sort_order);
