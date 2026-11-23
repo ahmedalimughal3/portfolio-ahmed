@@ -8,9 +8,9 @@ export const metadata: Metadata = {
   description:
     "I design and build thoughtful digital experiences, from the first sketch to the final pixel.",
   icons: {
-    icon: "/ahmed-profile.jfif",
-    shortcut: "/ahmed-profile.jfif",
-    apple: "/ahmed-profile.jfif",
+    icon: "/icon.png",
+    shortcut: "/icon.png",
+    apple: "/icon.png",
   },
 };
 
