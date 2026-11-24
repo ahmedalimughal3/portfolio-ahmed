@@ -896,6 +896,7 @@ a:focus-visible {
   border: 1px solid #e2e4df;
   border-radius: 50%;
   color: #747b7d;
+  text-decoration: none;
   transition: background 180ms ease, color 180ms ease, transform 180ms ease;
 }
 

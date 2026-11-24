@@ -91,7 +91,7 @@ function getPayload(
     if (field.kind === "email" && typeof value === "string" && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
       throw new Error("Enter a valid contact email address.");
     }
-    if (field.kind === "url" && typeof value === "string") {
+    if (field.kind === "url" && typeof value === "string" && value) {
       try {
         const url = new URL(value);
         if (url.protocol !== "https:" && url.protocol !== "http:") throw new Error();

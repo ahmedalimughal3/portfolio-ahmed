@@ -90,12 +90,14 @@ function parseProject(payload: Record<string, unknown>): Project {
   if (!oneOf(theme, ["lime", "blue", "coral"]) || !oneOf(visual, ["orbit", "flow", "pulse"])) {
     throw new Error("Published project has an unsupported visual style.");
   }
+  const url = typeof payload.url === "string" ? payload.url.trim() : "";
   return {
     name: requiredString(payload, "name"),
     category: requiredString(payload, "category"),
     description: requiredString(payload, "description"),
     year: requiredString(payload, "year"),
     tags: stringList(payload, "tags"),
+    url,
     theme,
     visual,
   };

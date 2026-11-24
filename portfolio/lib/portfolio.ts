@@ -4,6 +4,7 @@ export type Project = {
   description: string;
   year: string;
   tags: string[];
+  url?: string;
   theme: "lime" | "blue" | "coral";
   visual: "orbit" | "flow" | "pulse";
 };

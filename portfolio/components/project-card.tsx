@@ -64,7 +64,19 @@ export function ProjectCard({ project }: { project: Project }) {
       <div className="project-card-content">
         <div className="project-title-row">
           <h3>{project.name}</h3>
-          <span className="project-arrow" aria-hidden="true"><Icon name="arrow" /></span>
+          {project.url ? (
+            <a
+              className="project-arrow"
+              href={project.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`Open ${project.name} website`}
+            >
+              <Icon name="arrow" />
+            </a>
+          ) : (
+            <span className="project-arrow" aria-hidden="true"><Icon name="arrow" /></span>
+          )}
         </div>
         <p>{project.description}</p>
         <ul className="project-tags" aria-label="Project skills">

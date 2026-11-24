@@ -32,6 +32,7 @@ export const contentSections: {
       { key: "description", label: "Description", kind: "textarea", required: true },
       { key: "year", label: "Year", required: true },
       { key: "tags", label: "Tags", kind: "list", required: true },
+      { key: "url", label: "Project website URL", kind: "url" },
       { key: "theme", label: "Color theme", kind: "select", options: ["lime", "blue", "coral"], required: true },
       { key: "visual", label: "Card visual", kind: "select", options: ["orbit", "flow", "pulse"], required: true },
     ],
