@@ -4,9 +4,9 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: "Ahmed — Designer & Developer",
+  title: "Ahmed Ali Mughal | Full Stack Developer| Mern Stack Developer | Junior Developer at BawdicSoft LLC Pvt. Ltd",
   description:
-    "I design and build thoughtful digital experiences, from the first sketch to the final pixel.",
+    "I’m Ahmed Ali Mughal, a Full Stack Developer who enjoys turning ideas into real, working web applications.",
   icons: {
     icon: "/icon.png",
     shortcut: "/icon.png",
