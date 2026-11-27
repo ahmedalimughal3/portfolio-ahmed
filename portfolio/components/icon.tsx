@@ -8,6 +8,7 @@ type IconName =
   | "experience"
   | "services"
   | "blog"
+  | "calendar"
   | "mail"
   | "phone"
   | "arrow"
@@ -69,6 +70,12 @@ const paths: Record<IconName, ReactNode> = {
     <>
       <path d="M5 4.5A2.5 2.5 0 0 1 7.5 2H20v17H7.5A2.5 2.5 0 0 1 5 16.5v-12Z" />
       <path d="M5 16.5A2.5 2.5 0 0 1 7.5 14H20M9 6h7M9 9h7" />
+    </>
+  ),
+  calendar: (
+    <>
+      <rect x="3" y="5" width="18" height="16" rx="2.5" />
+      <path d="M7 3v4M17 3v4M3 10h18" />
     </>
   ),
   arrow: (

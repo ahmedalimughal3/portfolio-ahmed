@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import { connection } from "next/server";
 import { getAdminSession } from "@/lib/admin-auth";
 import { isSupabaseConfigured } from "@/lib/supabase/server";
+import { AdminNavigation } from "@/components/admin-navigation";
 import { signOut } from "./sign-out";
 
 async function AdminWorkspace({
@@ -22,9 +23,7 @@ async function AdminWorkspace({
           <span>AHMED<span className="admin-brand-dot">.</span></span>
         </Link>
         <div className="admin-sidebar-label">WORKSPACE</div>
-        <Link className="admin-sidebar-link is-active" href="/admin">
-          <span aria-hidden="true">▦</span> Portfolio content
-        </Link>
+        <AdminNavigation />
         <div className="admin-sidebar-bottom">
           <span className="admin-status-dot" />
           <span>Signed in as<br /><strong>{user.email}</strong></span>

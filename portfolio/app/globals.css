@@ -182,6 +182,17 @@ a:focus-visible {
   color: #fff;
 }
 
+.booking-trigger {
+  margin-top: 8px;
+  background: var(--lime);
+  color: #151812;
+}
+
+.booking-trigger:hover {
+  background: #d7ff7c;
+  color: #151812;
+}
+
 .site-sidebar.is-hidden {
   pointer-events: none;
   transform: translateX(calc(-100% - 16px));
@@ -246,6 +257,166 @@ a:focus-visible {
   font-size: 11px;
   font-weight: 700;
   transition: border-color 180ms ease, color 180ms ease;
+}
+
+.booking-dialog {
+  width: min(460px, calc(100vw - 32px));
+  max-width: none;
+  max-height: min(90vh, 760px);
+  padding: 0;
+  overflow: auto;
+  border: 1px solid #e0e2dd;
+  border-radius: 16px;
+  background: var(--paper);
+  color: var(--ink);
+  box-shadow: 0 24px 80px rgba(0, 0, 0, .28);
+}
+
+.booking-dialog.is-scheduling {
+  width: min(940px, calc(100vw - 32px));
+  height: min(820px, 92vh);
+}
+
+.booking-dialog::backdrop {
+  background: rgba(15, 17, 20, .62);
+  backdrop-filter: blur(4px);
+}
+
+.booking-form {
+  position: relative;
+  display: grid;
+  gap: 16px;
+  padding: 34px;
+}
+
+.booking-form h2 {
+  margin: -7px 0 -10px;
+  font-size: clamp(29px, 7vw, 39px);
+  letter-spacing: -.07em;
+}
+
+.booking-form h2 span {
+  color: var(--blue);
+}
+
+.booking-form > p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.booking-form label {
+  display: grid;
+  gap: 7px;
+  color: #444a4e;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.booking-form label small {
+  color: var(--muted);
+  font-weight: 400;
+}
+
+.booking-form input,
+.booking-form textarea {
+  width: 100%;
+  padding: 11px 12px;
+  border: 1px solid #d5d8d2;
+  border-radius: 7px;
+  background: #fff;
+  color: var(--ink);
+  font: inherit;
+  font-size: 13px;
+  resize: vertical;
+}
+
+.booking-form input:focus,
+.booking-form textarea:focus {
+  border-color: var(--blue);
+  outline: 2px solid rgba(66, 104, 230, .16);
+}
+
+.booking-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  display: grid;
+  width: 30px;
+  height: 30px;
+  place-items: center;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--ink);
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.booking-submit {
+  justify-content: center;
+  width: 100%;
+  min-height: 46px;
+  margin-top: 2px;
+}
+
+.booking-error {
+  color: #a52c2c !important;
+}
+
+.booking-privacy {
+  color: var(--muted);
+  font-size: 10px;
+  line-height: 1.5;
+}
+
+.booking-scheduler {
+  display: grid;
+  height: 100%;
+  min-height: 0;
+  grid-template-rows: auto minmax(0, 1fr);
+  padding: 22px 24px 18px;
+}
+
+.booking-scheduler-heading {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 0 42px 17px 0;
+}
+
+.booking-scheduler-heading h2 {
+  margin: 6px 0 0;
+  font-size: clamp(20px, 4vw, 28px);
+  letter-spacing: -.06em;
+}
+
+.booking-scheduler-heading .booking-close {
+  top: 0;
+  right: 0;
+}
+
+.booking-back {
+  padding: 8px 10px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: transparent;
+  color: #4a5054;
+  font: inherit;
+  font-size: 10px;
+  cursor: pointer;
+}
+
+.booking-calcom-frame {
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  border: 0;
+  border-radius: 8px;
+  background: #fff;
 }
 
 .sidebar-shortcuts a:hover {
@@ -1996,14 +2167,14 @@ a:focus-visible {
   }
 
   .sidebar-link {
-    min-width: 42px;
+    min-width: 29px;
     min-height: 47px;
     flex: 1;
     flex-direction: column;
     justify-content: center;
     gap: 3px;
     padding: 3px;
-    font-size: 8px;
+    font-size: 7px;
   }
 
   .sidebar-link svg {
@@ -2013,6 +2184,15 @@ a:focus-visible {
 
   .blog-new-badge {
     display: none;
+  }
+
+  .booking-trigger {
+    margin-top: 0;
+  }
+
+  .booking-trigger span {
+    max-width: 46px;
+    line-height: 1.05;
   }
 
   .sidebar-bottom {
@@ -3058,8 +3238,15 @@ a:focus-visible {
     gap: 12px;
     padding: 12px 16px;
   }
-  .admin-sidebar-label,
-  .admin-sidebar-link { display: none; }
+  .admin-sidebar-label { display: none; }
+  .admin-sidebar-link { display: flex; }
+  .admin-sidebar-link {
+    min-height: 32px;
+    gap: 4px;
+    padding: 0 5px;
+    font-size: 8px;
+    white-space: nowrap;
+  }
   .admin-sidebar-bottom {
     width: auto;
     grid-template-columns: 7px minmax(0, 1fr) 30px;
@@ -3078,4 +3265,98 @@ a:focus-visible {
   .admin-fields-grid { grid-template-columns: 1fr; }
   .admin-field.is-wide { grid-column: auto; }
   .admin-edit-form { padding: 15px; }
+}
+
+.booking-admin-list {
+  display: grid;
+  gap: 10px;
+  margin-top: 24px;
+}
+
+.booking-admin-card {
+  display: grid;
+  grid-template-columns: minmax(170px, .9fr) minmax(220px, 1fr) auto;
+  align-items: center;
+  gap: 22px;
+  padding: 18px 20px;
+  border: 1px solid #e0e2dd;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, .75);
+}
+
+.booking-admin-main,
+.booking-admin-time {
+  display: grid;
+  justify-items: start;
+  gap: 6px;
+  min-width: 0;
+}
+
+.booking-admin-main h2 {
+  margin: 4px 0 0;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.booking-admin-main a,
+.booking-admin-time span,
+.booking-admin-time small {
+  overflow-wrap: anywhere;
+  color: #788087;
+  font-size: 10px;
+}
+
+.booking-admin-time strong {
+  font-size: 11px;
+}
+
+.booking-admin-notes {
+  max-width: 460px;
+  line-height: 1.6;
+  white-space: pre-wrap;
+}
+
+.booking-status {
+  padding: 4px 7px;
+  border-radius: 4px;
+  background: #f7e5df;
+  color: #9a4933;
+  font-family: "Courier New", monospace;
+  font-size: 8px;
+  text-transform: uppercase;
+}
+
+.booking-status.is-confirmed {
+  background: #e8f4cf;
+  color: #526e1a;
+}
+
+.booking-admin-link {
+  color: #4268e6;
+  font-size: 10px;
+  white-space: nowrap;
+}
+
+@media (max-width: 760px) {
+  .booking-admin-card {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    padding: 16px;
+  }
+}
+
+@media (max-width: 380px) {
+  .booking-form { padding: 30px 22px 24px; }
+  .site-sidebar { padding-right: 7px; padding-left: 7px; }
+  .brand-mark { padding-right: 3px; padding-left: 3px; }
+  .sidebar-link { padding-right: 1px; padding-left: 1px; }
+}
+
+@media (max-width: 600px) {
+  .booking-dialog.is-scheduling {
+    height: min(840px, 94vh);
+  }
+  .booking-scheduler { padding: 17px 12px 12px; }
+  .booking-scheduler-heading { padding-right: 35px; }
+  .booking-back { padding: 7px; font-size: 9px; }
 }

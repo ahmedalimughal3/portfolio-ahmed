@@ -52,6 +52,26 @@ is configured, the public site continues to use its existing local content.
    replacing `you@example.com` with your user's email.
 6. Restart the local dev server, then sign in at `http://localhost:3000/admin/login`.
 
+## Cal.com free-call booking
+
+The public sidebar's **Book a free call** button first collects a name, email,
+and optional project note, then displays your Cal.com date/time picker inline
+with those details pre-filled. Once a visitor confirms a time, Cal.com emails
+the attendee and organizer according to the event's notification settings.
+The booking appears in the protected `/admin/bookings` page through a signed
+Cal.com webhook.
+
+1. Copy `.env.example` to `.env.local` and set the Cal.com event URL, Supabase
+   service-role key, and a long random webhook secret. Keep both secret values
+   private and configure the same values in your hosting provider.
+2. Run `supabase/calcom-bookings.sql` in the Supabase SQL Editor.
+3. In Cal.com, add a webhook for booking created, rescheduled, and cancelled
+   events. Set its subscriber URL to `https://YOUR_SITE/api/calcom/webhook`,
+   use the same secret as `CALCOM_WEBHOOK_SECRET`, and enable attendee and
+   organizer email notifications in the event settings.
+4. Restart the app locally or redeploy after setting production environment
+   variables. Bookings are visible to signed-in admins at `/admin/bookings`.
+
 For the production site, set the Supabase project URL as the Supabase Auth
 Site URL and allow `https://ahmedali-five.vercel.app/**` under Auth URL
 Configuration. In Vercel, set `NEXT_PUBLIC_SUPABASE_URL` and

@@ -1,5 +1,6 @@
 import { Suspense } from "react";
 import { notFound } from "next/navigation";
+import { connection } from "next/server";
 import { AdminDashboard } from "@/components/admin-dashboard";
 import { getContentSection } from "@/lib/content-types";
 import { requireAdmin } from "@/lib/admin-auth";
@@ -10,6 +11,7 @@ type AdminPageProps = {
 };
 
 async function AdminPageContent({ searchParams }: AdminPageProps) {
+  await connection();
   await requireAdmin();
   const { section: requestedSection } = await searchParams;
   const section = getContentSection(requestedSection ?? "projects")?.id;
